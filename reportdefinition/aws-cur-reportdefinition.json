@@ -13,7 +13,6 @@
     "TimeUnit": {
       "description": "The granularity of the line items in the report.",
       "type": "string",
-      "default": "HOURLY",
       "enum": [
         "HOURLY",
         "DAILY",
@@ -23,7 +22,6 @@
     "Format": {
       "description": "The format that AWS saves the report in.",
       "type": "string",
-      "default": "textORcsv",
       "enum": [
         "textORcsv",
         "Parquet"
@@ -32,7 +30,6 @@
     "Compression": {
       "description": "The compression format that AWS uses for the report.",
       "type": "string",
-      "default": "GZIP",
       "enum": [
         "ZIP",
         "GZIP",
@@ -110,13 +107,11 @@
     },
     "RefreshClosedReports": {
       "description": "Whether you want Amazon Web Services to update your reports after they have been finalized if Amazon Web Services detects charges related to previous months. These charges can include refunds, credits, or support fees.",
-      "type": "boolean",
-      "default": true
+      "type": "boolean"
     },
     "ReportVersioning": {
       "description": "Whether you want Amazon Web Services to overwrite the previous version of each report or to deliver the report in addition to the previous versions.",
       "type": "string",
-      "default": "CREATE_NEW_REPORT",
       "enum": [
         "CREATE_NEW_REPORT",
         "OVERWRITE_REPORT"
@@ -134,9 +129,14 @@
   "additionalProperties": false,
   "required": [
     "ReportName",
+    "TimeUnit",
+    "Format",
+    "Compression",
     "S3Bucket",
     "S3Prefix",
-    "S3Region"
+    "S3Region",
+    "RefreshClosedReports",
+    "ReportVersioning"
   ],
   "createOnlyProperties": [
     "/properties/ReportName",

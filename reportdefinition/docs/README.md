@@ -71,7 +71,7 @@ _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/l
 
 The granularity of the line items in the report.
 
-_Required_: No
+_Required_: Yes
 
 _Type_: String
 
@@ -83,7 +83,7 @@ _Update requires_: [Replacement](https://docs.aws.amazon.com/AWSCloudFormation/l
 
 The format that AWS saves the report in.
 
-_Required_: No
+_Required_: Yes
 
 _Type_: String
 
@@ -95,7 +95,7 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 The compression format that AWS uses for the report.
 
-_Required_: No
+_Required_: Yes
 
 _Type_: String
 
@@ -171,7 +171,7 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 Whether you want Amazon Web Services to update your reports after they have been finalized if Amazon Web Services detects charges related to previous months. These charges can include refunds, credits, or support fees.
 
-_Required_: No
+_Required_: Yes
 
 _Type_: Boolean
 
@@ -181,7 +181,7 @@ _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormati
 
 Whether you want Amazon Web Services to overwrite the previous version of each report or to deliver the report in addition to the previous versions.
 
-_Required_: No
+_Required_: Yes
 
 _Type_: String
 

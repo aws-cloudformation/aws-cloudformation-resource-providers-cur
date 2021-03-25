@@ -1,7 +1,11 @@
 {
   "ReportName": "ContractTestReport",
+  "TimeUnit": "HOURLY",
+  "Format": "textORcsv",
+  "Compression": "ZIP",
   "S3Bucket": "",
   "S3Prefix": "contract-testing",
   "S3Region": "",
-  "Compression": "ZIP"
+  "RefreshClosedReports": true,
+  "ReportVersioning": "CREATE_NEW_REPORT"
 }

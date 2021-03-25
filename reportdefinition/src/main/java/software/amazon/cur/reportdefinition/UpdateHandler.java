@@ -18,8 +18,9 @@ public class UpdateHandler extends CurBaseHandler {
 
         final ResourceModel model = request.getDesiredResourceState();
 
-        final ReportDefinition currentReportDefinition = getReport(model.getReportName(), proxy);
-        final ReportDefinition updatedReportDefinition = Translator.toReportDefinition(model, currentReportDefinition);
+        // This will throw the exception needed if the report doesn't exist - we don't need the ReportDefinition it returns
+        getReport(model.getReportName(), proxy, logger);
+        final ReportDefinition updatedReportDefinition = Translator.toReportDefinition(model);
 
         try {
             proxy.injectCredentialsAndInvokeV2(

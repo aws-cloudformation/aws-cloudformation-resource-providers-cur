@@ -20,7 +20,7 @@ public class DeleteHandler extends CurBaseHandler {
         final ResourceModel model = request.getDesiredResourceState();
 
         // This will throw the exception needed if the report doesn't exist - we don't need the ReportDefinition it returns
-        getReport(model.getReportName(), proxy);
+        getReport(model.getReportName(), proxy, logger);
 
         try {
             proxy.injectCredentialsAndInvokeV2(

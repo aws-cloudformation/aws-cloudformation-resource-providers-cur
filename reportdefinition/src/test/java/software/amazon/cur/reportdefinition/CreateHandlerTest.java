@@ -10,7 +10,6 @@ import software.amazon.cloudformation.proxy.Logger;
 import software.amazon.cloudformation.proxy.OperationStatus;
 import software.amazon.cloudformation.proxy.ProgressEvent;
 import software.amazon.cloudformation.proxy.ResourceHandlerRequest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -21,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 public class CreateHandlerTest {
@@ -32,14 +30,8 @@ public class CreateHandlerTest {
     @Mock
     private Logger logger;
 
-    @BeforeEach
-    public void setup() {
-        proxy = mock(AmazonWebServicesClientProxy.class);
-        logger = mock(Logger.class);
-    }
-
     @Test
-    public void handleRequest_SimpleSuccess() {
+    void handleRequest_SimpleSuccess() {
         final CreateHandler handler = new CreateHandler();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
@@ -65,7 +57,7 @@ public class CreateHandlerTest {
     }
 
     @Test
-    public void handleRequest_DuplicateReportName() {
+    void handleRequest_DuplicateReportName() {
         final CreateHandler handler = new CreateHandler();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
@@ -79,7 +71,7 @@ public class CreateHandlerTest {
     }
 
     @Test
-    public void handleRequest_ReportLimitReached() {
+    void handleRequest_ReportLimitReached() {
         final CreateHandler handler = new CreateHandler();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()

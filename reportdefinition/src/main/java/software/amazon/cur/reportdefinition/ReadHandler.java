@@ -21,7 +21,7 @@ public class ReadHandler extends CurBaseHandler {
         String reportName = request.getDesiredResourceState().getReportName();
 
         try {
-            ReportDefinition reportDefinition = getReport(reportName, proxy);
+            ReportDefinition reportDefinition = getReport(reportName, proxy, logger);
 
             return ProgressEvent.<ResourceModel, CallbackContext>builder()
                 .resourceModel(Translator.toResourceModel(reportDefinition))

@@ -2,7 +2,11 @@ package software.amazon.cur.reportdefinition;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import software.amazon.awssdk.services.costandusagereport.model.CostAndUsageReportException;
 import software.amazon.awssdk.services.costandusagereport.model.DuplicateReportNameException;
@@ -17,39 +21,21 @@ import software.amazon.cloudformation.exceptions.CfnInvalidRequestException;
 import software.amazon.cloudformation.exceptions.CfnServiceLimitExceededException;
 
 public class ExceptionTranslatorTest {
-    @Test
-    public void toCfnException_DuplicateReportNameException() {
-        BaseHandlerException translatedException = ExceptionTranslator.toCfnException(DuplicateReportNameException.builder().build(), TestUtil.TEST_REPORT_NAME);
 
-        assertTrue(translatedException instanceof CfnAlreadyExistsException);
+    @ParameterizedTest
+    @MethodSource("exceptionProvider")
+    void toCfnException(CostAndUsageReportException exception, Class<? extends BaseHandlerException> translatedExceptionType) {
+        BaseHandlerException translatedException = ExceptionTranslator.toCfnException(exception, TestUtil.TEST_REPORT_NAME);
+        assertTrue(translatedException.getClass().equals(translatedExceptionType));
     }
 
-    @Test
-    public void toCfnException_ReportLimitReachedException() {
-        BaseHandlerException translatedException = ExceptionTranslator.toCfnException(ReportLimitReachedException.builder().build(), TestUtil.TEST_REPORT_NAME);
-
-        assertTrue(translatedException instanceof CfnServiceLimitExceededException);
-    }
-
-    @Test
-    public void toCfnException_ValidationException() {
-        BaseHandlerException translatedException = ExceptionTranslator.toCfnException(ValidationException.builder().build(), TestUtil.TEST_REPORT_NAME);
-
-        assertTrue(translatedException instanceof CfnInvalidRequestException);
-    }
-
-    @Test
-    public void toCfnException_InternalErrorException() {
-        BaseHandlerException translatedException = ExceptionTranslator.toCfnException(InternalErrorException.builder().build(), TestUtil.TEST_REPORT_NAME);
-
-        assertTrue(translatedException instanceof CfnInternalFailureException);
-    }
-
-    @Test
-    public void toCfnException_GenericException() {
-        BaseHandlerException translatedException = ExceptionTranslator.toCfnException(
-                (CostAndUsageReportException) CostAndUsageReportException.builder().build(), TestUtil.TEST_REPORT_NAME);
-
-        assertTrue(translatedException instanceof CfnGeneralServiceException);
+    static Stream<Arguments> exceptionProvider() {
+        return Stream.of(
+            Arguments.of(DuplicateReportNameException.builder().build(), CfnAlreadyExistsException.class),
+            Arguments.of(ReportLimitReachedException.builder().build(), CfnServiceLimitExceededException.class),
+            Arguments.of(ValidationException.builder().build(), CfnInvalidRequestException.class),
+            Arguments.of(InternalErrorException.builder().build(), CfnInternalFailureException.class),
+            Arguments.of(CostAndUsageReportException.builder().build(), CfnGeneralServiceException.class)
+        );
     }
 }

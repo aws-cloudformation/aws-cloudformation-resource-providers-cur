@@ -9,6 +9,7 @@ import software.amazon.awssdk.services.costandusagereport.model.ReportDefinition
 import software.amazon.awssdk.services.costandusagereport.model.DescribeReportDefinitionsRequest;
 import software.amazon.cloudformation.exceptions.CfnNotFoundException;
 import software.amazon.cloudformation.proxy.AmazonWebServicesClientProxy;
+import software.amazon.cloudformation.proxy.Logger;
 
 public abstract class CurBaseHandler extends BaseHandler<CallbackContext> {
     protected final CostAndUsageReportClient curClient;
@@ -17,7 +18,7 @@ public abstract class CurBaseHandler extends BaseHandler<CallbackContext> {
         this.curClient = CostAndUsageReportClient.builder().build();
     }
 
-    protected ReportDefinition getReport(String reportName, AmazonWebServicesClientProxy proxy) {
+    protected ReportDefinition getReport(String reportName, AmazonWebServicesClientProxy proxy, Logger logger) {
         DescribeReportDefinitionsResponse describeReportDefinitionsResponse = proxy.injectCredentialsAndInvokeV2(
             DescribeReportDefinitionsRequest.builder().build(),
             curClient::describeReportDefinitions
@@ -27,8 +28,12 @@ public abstract class CurBaseHandler extends BaseHandler<CallbackContext> {
             .filter(reportDefinition -> reportDefinition.reportName().equals(reportName))
             .collect(Collectors.toList());
 
-        if (reports.size() != 1) {
+        if (reports.size() == 0) {
             throw new CfnNotFoundException(ResourceModel.TYPE_NAME, reportName);
+        }
+
+        if (reports.size() > 1) {
+            logger.log(String.format("%d reports found with the same name", reports.size()));
         }
 
         return reports.get(0);

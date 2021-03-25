@@ -10,9 +10,7 @@ import software.amazon.cloudformation.proxy.StdCallbackContext;
     https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test-progressevent.html#progressevent-properties-CallbackContext
 */
 
-@lombok.Getter
-@lombok.Setter
-@lombok.ToString
+@lombok.Data
 @lombok.EqualsAndHashCode(callSuper = true)
 public class CallbackContext extends StdCallbackContext {
 }

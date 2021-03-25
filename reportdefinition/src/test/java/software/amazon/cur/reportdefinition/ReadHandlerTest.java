@@ -7,7 +7,6 @@ import software.amazon.cloudformation.proxy.Logger;
 import software.amazon.cloudformation.proxy.OperationStatus;
 import software.amazon.cloudformation.proxy.ProgressEvent;
 import software.amazon.cloudformation.proxy.ResourceHandlerRequest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -17,7 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 
 import java.util.Collections;
 
@@ -30,14 +28,8 @@ public class ReadHandlerTest {
     @Mock
     private Logger logger;
 
-    @BeforeEach
-    public void setup() {
-        proxy = mock(AmazonWebServicesClientProxy.class);
-        logger = mock(Logger.class);
-    }
-
     @Test
-    public void handleRequest_SimpleSuccess() {
+    void handleRequest_SimpleSuccess() {
         final ReadHandler handler = new ReadHandler();
 
         // The input to a read handler MUST contain either the primaryIdentifier or an additionalIdentifier. Any other properties MAY NOT be included in the request.
@@ -66,7 +58,7 @@ public class ReadHandlerTest {
     }
 
     @Test
-    public void handleRequest_DoesNotExist() {
+    void handleRequest_DoesNotExist() {
         final ReadHandler handler = new ReadHandler();
 
         final ResourceModel model = ResourceModel.builder()
