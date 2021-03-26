@@ -1,0 +1,28 @@
+{
+  "credentials": {
+    "accessKeyId": "",
+    "secretAccessKey": "",
+    "sessionToken": ""
+  },
+  "action": "CREATE",
+  "request": {
+    "clientRequestToken": "4b90a7e4-b790-456b-a937-0cfdfa211dfe",
+    "desiredResourceState": {
+      "ReportName": "SAM",
+      "TimeUnit": "HOURLY",
+      "Format": "textORcsv",
+      "Compression": "GZIP",
+      "AdditionalSchemaElements": [
+        "RESOURCES"
+      ],
+      "S3Bucket": "",
+      "S3Prefix": "sam-cur",
+      "S3Region": "",
+      "AdditionalArtifacts": [],
+      "RefreshClosedReports": true,
+      "ReportVersioning": "CREATE_NEW_REPORT"
+    },
+    "logicalResourceIdentifier": "SAMReportDefinition"
+  },
+  "callbackContext": null
+}
