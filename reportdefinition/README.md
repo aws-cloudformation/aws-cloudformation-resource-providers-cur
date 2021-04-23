@@ -43,7 +43,7 @@ sam local invoke TestEntrypoint --event sam-tests/<filename>
 ### Contract Tests
 To ensure that the handlers fulfill the [resource type handler contract](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test-contract.html) requirements, you should run the full test suite after making any changes to the code.
 
-> Due to the requirements of the ReportDefinition resource type, the contract tests are run using manually specified input instead of randomly generated input. These files can be found in the `inputs` directory and follow the pattern described in [this documentation](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test.html#resource-type-test-inputs). Additionally, because the S3 bucket that is used in the report definition must be owned by the same account that owns the report, you'll need to modify the test files to use valid values for `S3Bucket` and `S3Region`. See [here](https://docs.aws.amazon.com/cur/latest/userguide/cur-s3.html) for more details on how to setup such a bucket.
+> Due to the requirements of the ReportDefinition resource type, the contract tests are run using manually specified input instead of randomly generated input. These files can be found in the `inputs` directory and follow the pattern described in [this documentation](https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test.html#resource-type-test-inputs). Additionally, because the S3 bucket that is used in the report definition must be owned by the same account that owns the report, you'll need to modify the test files to use valid values for `S3Bucket` and `S3Region`. See [here](https://docs.aws.amazon.com/cur/latest/userguide/cur-s3.html) for more details on how to setup such a bucket. If you have a CloudFormation stack in the same account/region that contains a suitable S3 bucket and ouputs named `ContractTestBucketName` and `ContractTestBucketRegion` (with corresponding values), you can leave the JSON files in the `inputs` directory untouched.
 
 To run the test, first run
 
@@ -51,7 +51,7 @@ To run the test, first run
 sam local start-lambda
 ```
 
-in the root directory to initialize a local Lambda instance (you may need to run `mvn package` first to include the latests changes in the JAR used by SAM) and then run
+in the root directory to initialize a local Lambda instance (you may need to run `mvn package` first to include the latest changes in the JAR used by SAM) and then run
 
 ```
 cfn test

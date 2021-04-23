@@ -3,9 +3,9 @@
   "TimeUnit": "HOURLY",
   "Format": "textORcsv",
   "Compression": "GZIP",
-  "S3Bucket": "",
+  "S3Bucket": "{{ContractTestBucketName}}",
   "S3Prefix": "contract-testing",
-  "S3Region": "",
+  "S3Region": "{{ContractTestBucketRegion}}",
   "RefreshClosedReports": true,
   "ReportVersioning": "CREATE_NEW_REPORT"
 }
