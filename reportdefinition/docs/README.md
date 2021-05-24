@@ -153,8 +153,6 @@ _Required_: Yes
 
 _Type_: String
 
-_Allowed Values_: <code>af-south-1</code> | <code>ap-east-1</code> | <code>ap-south-1</code> | <code>ap-southeast-1</code> | <code>ap-southeast-2</code> | <code>ap-northeast-1</code> | <code>ap-northeast-2</code> | <code>ap-northeast-3</code> | <code>ca-central-1</code> | <code>eu-centrail-1</code> | <code>eu-west-1</code> | <code>eu-west-2</code> | <code>eu-west-3</code> | <code>eu-north-1</code> | <code>eu-south-1</code> | <code>me-south-1</code> | <code>sa-east-1</code> | <code>us-east-1</code> | <code>us-east-2</code> | <code>us-west-1</code> | <code>us-west-2</code> | <code>cn-north-1</code> | <code>cn-northwest-1</code>
-
 _Update requires_: [No interruption](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-update-behaviors.html#update-no-interrupt)
 
 #### AdditionalArtifacts
