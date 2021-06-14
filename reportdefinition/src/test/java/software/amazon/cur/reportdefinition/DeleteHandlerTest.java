@@ -33,7 +33,7 @@ public class DeleteHandlerTest {
 
     @Test
     void handleRequest_SimpleSuccess() {
-        final DeleteHandler handler = new DeleteHandler();
+        final DeleteHandler handler = new DeleteHandler(TestUtil.TEST_CLIENT);
 
         // The input to a delete handler MUST contain either the primaryIdentifier or an additionalIdentifier. Any other properties MAY NOT be included in the request.
         // https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test-contract.html#resource-type-test-contract-delete
@@ -67,7 +67,7 @@ public class DeleteHandlerTest {
 
     @Test
     void handleRequest_DoesNotExist() {
-        final DeleteHandler handler = new DeleteHandler();
+        final DeleteHandler handler = new DeleteHandler(TestUtil.TEST_CLIENT);
 
         final ResourceModel model = ResourceModel.builder()
             .reportName(TestUtil.TEST_REPORT_NAME)

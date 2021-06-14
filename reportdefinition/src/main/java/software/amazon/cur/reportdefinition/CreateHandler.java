@@ -1,5 +1,6 @@
 package software.amazon.cur.reportdefinition;
 
+import software.amazon.awssdk.services.costandusagereport.CostAndUsageReportClient;
 import software.amazon.awssdk.services.costandusagereport.model.CostAndUsageReportException;
 import software.amazon.awssdk.services.costandusagereport.model.PutReportDefinitionRequest;
 import software.amazon.awssdk.services.costandusagereport.model.ReportDefinition;
@@ -10,6 +11,14 @@ import software.amazon.cloudformation.proxy.OperationStatus;
 import software.amazon.cloudformation.proxy.ResourceHandlerRequest;
 
 public class CreateHandler extends CurBaseHandler {
+
+    public CreateHandler() {
+        super();
+    }
+
+    public CreateHandler(CostAndUsageReportClient client) {
+        super(client);
+    }
 
     @Override
     public ProgressEvent<ResourceModel, CallbackContext> handleRequest(

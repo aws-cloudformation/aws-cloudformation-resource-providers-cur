@@ -1,5 +1,6 @@
 package software.amazon.cur.reportdefinition;
 
+import software.amazon.awssdk.services.costandusagereport.CostAndUsageReportClient;
 import software.amazon.awssdk.services.costandusagereport.model.CostAndUsageReportException;
 import software.amazon.awssdk.services.costandusagereport.model.DescribeReportDefinitionsResponse;
 import software.amazon.cloudformation.proxy.AmazonWebServicesClientProxy;
@@ -13,6 +14,14 @@ import java.util.stream.Collectors;
 
 // https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test-contract.html#resource-type-test-contract-list
 public class ListHandler extends CurBaseHandler {
+
+    public ListHandler() {
+        super();
+    }
+
+    public ListHandler(CostAndUsageReportClient client) {
+        super(client);
+    }
 
     @Override
     public ProgressEvent<ResourceModel, CallbackContext> handleRequest(

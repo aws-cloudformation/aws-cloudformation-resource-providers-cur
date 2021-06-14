@@ -32,7 +32,7 @@ public class CreateHandlerTest {
 
     @Test
     void handleRequest_SimpleSuccess() {
-        final CreateHandler handler = new CreateHandler();
+        final CreateHandler handler = new CreateHandler(TestUtil.TEST_CLIENT);
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
             .desiredResourceState(TestUtil.TEST_RESOURCE_MODEL)
@@ -58,7 +58,7 @@ public class CreateHandlerTest {
 
     @Test
     void handleRequest_DuplicateReportName() {
-        final CreateHandler handler = new CreateHandler();
+        final CreateHandler handler = new CreateHandler(TestUtil.TEST_CLIENT);
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
             .desiredResourceState(TestUtil.TEST_RESOURCE_MODEL)
@@ -72,7 +72,7 @@ public class CreateHandlerTest {
 
     @Test
     void handleRequest_ReportLimitReached() {
-        final CreateHandler handler = new CreateHandler();
+        final CreateHandler handler = new CreateHandler(TestUtil.TEST_CLIENT);
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
             .desiredResourceState(TestUtil.TEST_RESOURCE_MODEL)

@@ -2,6 +2,7 @@ package software.amazon.cur.reportdefinition;
 
 import java.util.Collections;
 
+import software.amazon.awssdk.services.costandusagereport.CostAndUsageReportClient;
 import software.amazon.awssdk.services.costandusagereport.model.CompressionFormat;
 import software.amazon.awssdk.services.costandusagereport.model.ReportDefinition;
 import software.amazon.awssdk.services.costandusagereport.model.ReportFormat;
@@ -43,4 +44,5 @@ public class TestUtil {
         .timeUnit(TimeUnit.HOURLY.toString())
         .build();
 
+    public static final CostAndUsageReportClient TEST_CLIENT = CostAndUsageReportClient.builder().build();
 }

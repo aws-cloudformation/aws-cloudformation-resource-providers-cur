@@ -37,7 +37,7 @@ public class UpdateHandlerTest {
 
     @Test
     void handleRequest_SimpleSuccess() {
-        final UpdateHandler handler = new UpdateHandler();
+        final UpdateHandler handler = new UpdateHandler(TestUtil.TEST_CLIENT);
 
         final ResourceModel model = ResourceModel.builder()
             .reportName(TestUtil.TEST_REPORT_NAME)
@@ -85,7 +85,7 @@ public class UpdateHandlerTest {
 
     @Test
     void handleRequest_DoesNotExist() {
-        final UpdateHandler handler = new UpdateHandler();
+        final UpdateHandler handler = new UpdateHandler(TestUtil.TEST_CLIENT);
 
         final ResourceModel model = ResourceModel.builder().reportName("testReportName").build();
 

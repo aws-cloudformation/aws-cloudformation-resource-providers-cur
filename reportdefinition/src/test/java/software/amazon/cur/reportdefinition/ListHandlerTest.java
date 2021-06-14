@@ -28,7 +28,7 @@ public class ListHandlerTest {
 
     @Test
     void handleRequest_SimpleSuccess() {
-        final ListHandler handler = new ListHandler();
+        final ListHandler handler = new ListHandler(TestUtil.TEST_CLIENT);
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
             .build();
