@@ -33,7 +33,7 @@ public class DeleteHandlerTest {
 
     @Test
     void handleRequest_SimpleSuccess() {
-        final DeleteHandler handler = new DeleteHandler(TestUtil.TEST_CLIENT);
+        final DeleteHandler handler = new DeleteHandler();
 
         // The input to a delete handler MUST contain either the primaryIdentifier or an additionalIdentifier. Any other properties MAY NOT be included in the request.
         // https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test-contract.html#resource-type-test-contract-delete
@@ -42,7 +42,9 @@ public class DeleteHandlerTest {
             .build();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
-                .desiredResourceState(model).build();
+            .region(TestUtil.TEST_STACK_REGION)
+            .desiredResourceState(model)
+            .build();
 
         doReturn(DescribeReportDefinitionsResponse.builder().reportDefinitions(TestUtil.TEST_REPORT_DEFINITION).build())
             .when(proxy)
@@ -67,14 +69,16 @@ public class DeleteHandlerTest {
 
     @Test
     void handleRequest_DoesNotExist() {
-        final DeleteHandler handler = new DeleteHandler(TestUtil.TEST_CLIENT);
+        final DeleteHandler handler = new DeleteHandler();
 
         final ResourceModel model = ResourceModel.builder()
             .reportName(TestUtil.TEST_REPORT_NAME)
             .build();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
-                .desiredResourceState(model).build();
+            .region(TestUtil.TEST_STACK_REGION)
+            .desiredResourceState(model)
+            .build();
 
         doReturn(DescribeReportDefinitionsResponse.builder().reportDefinitions(Collections.emptyList()).build())
                 .when(proxy).injectCredentialsAndInvokeV2(any(DescribeReportDefinitionsRequest.class), any());

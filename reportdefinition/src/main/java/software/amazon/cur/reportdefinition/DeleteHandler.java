@@ -11,14 +11,6 @@ import software.amazon.cloudformation.proxy.ResourceHandlerRequest;
 
 public class DeleteHandler extends CurBaseHandler {
 
-    public DeleteHandler() {
-        super();
-    }
-
-    public DeleteHandler(CostAndUsageReportClient client) {
-        super(client);
-    }
-
     @Override
     public ProgressEvent<ResourceModel, CallbackContext> handleRequest(
         final AmazonWebServicesClientProxy proxy,
@@ -27,9 +19,10 @@ public class DeleteHandler extends CurBaseHandler {
         final Logger logger) {
 
         final ResourceModel model = request.getDesiredResourceState();
+        final CostAndUsageReportClient curClient = getClient(request);
 
         // This will throw the exception needed if the report doesn't exist - we don't need the ReportDefinition it returns
-        getReport(model.getReportName(), proxy, logger);
+        getReport(model.getReportName(), proxy, logger, curClient);
 
         try {
             proxy.injectCredentialsAndInvokeV2(

@@ -15,20 +15,14 @@ import java.util.stream.Collectors;
 // https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test-contract.html#resource-type-test-contract-list
 public class ListHandler extends CurBaseHandler {
 
-    public ListHandler() {
-        super();
-    }
-
-    public ListHandler(CostAndUsageReportClient client) {
-        super(client);
-    }
-
     @Override
     public ProgressEvent<ResourceModel, CallbackContext> handleRequest(
         final AmazonWebServicesClientProxy proxy,
         final ResourceHandlerRequest<ResourceModel> request,
         final CallbackContext callbackContext,
         final Logger logger) {
+
+        final CostAndUsageReportClient curClient = getClient(request);
 
         try {
             DescribeReportDefinitionsResponse response = proxy.injectCredentialsAndInvokeV2(

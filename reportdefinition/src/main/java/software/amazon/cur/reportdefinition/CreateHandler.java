@@ -12,14 +12,6 @@ import software.amazon.cloudformation.proxy.ResourceHandlerRequest;
 
 public class CreateHandler extends CurBaseHandler {
 
-    public CreateHandler() {
-        super();
-    }
-
-    public CreateHandler(CostAndUsageReportClient client) {
-        super(client);
-    }
-
     @Override
     public ProgressEvent<ResourceModel, CallbackContext> handleRequest(
         final AmazonWebServicesClientProxy proxy,
@@ -29,6 +21,7 @@ public class CreateHandler extends CurBaseHandler {
 
         final ResourceModel model = request.getDesiredResourceState();
         final ReportDefinition reportDefinition = Translator.toReportDefinition(model);
+        final CostAndUsageReportClient curClient = getClient(request);
 
         try {
             proxy.injectCredentialsAndInvokeV2(

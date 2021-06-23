@@ -1,5 +1,6 @@
 package software.amazon.cur.reportdefinition;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ import software.amazon.awssdk.services.costandusagereport.model.DescribeReportDe
 import software.amazon.cloudformation.exceptions.CfnNotFoundException;
 import software.amazon.cloudformation.proxy.AmazonWebServicesClientProxy;
 import software.amazon.cloudformation.proxy.Logger;
+import software.amazon.cloudformation.proxy.ResourceHandlerRequest;
 
 public abstract class CurBaseHandler extends BaseHandler<CallbackContext> {
     private static final Map<String, Region> PARTITION_TO_SERVICE_REGION_MAP = ImmutableMap.of(
@@ -21,24 +23,20 @@ public abstract class CurBaseHandler extends BaseHandler<CallbackContext> {
         Region.US_EAST_1.metadata().partition().name(), Region.US_EAST_1
     );
 
-    protected final CostAndUsageReportClient curClient;
+    protected final Map<String, CostAndUsageReportClient> clientMap = new HashMap<>();
 
-    public CurBaseHandler() {
-        // Get the partition of the current region
-        String partition = Region.of(System.getenv("AWS_REGION")).metadata().partition().name();
-
-        // And use the CUR API service endpoint for that partition
-        this.curClient = CostAndUsageReportClient.builder()
-            .region(PARTITION_TO_SERVICE_REGION_MAP.get(partition))
-            .build();
+    protected CostAndUsageReportClient getClient(ResourceHandlerRequest<ResourceModel> request) {
+        return clientMap.computeIfAbsent(
+            // awsPartition is a field of the ResourceHandlerRequest, but doesn't appear to be populated for contract tests currently
+            // so we can get it via the region instead
+            Region.of(request.getRegion()).metadata().partition().name(),
+            partition -> CostAndUsageReportClient.builder()
+                .region(PARTITION_TO_SERVICE_REGION_MAP.get(partition))
+                .build()
+        );
     }
 
-    // Used for unit testing
-    public CurBaseHandler(CostAndUsageReportClient client) {
-        this.curClient = client;
-    }
-
-    protected ReportDefinition getReport(String reportName, AmazonWebServicesClientProxy proxy, Logger logger) {
+    protected ReportDefinition getReport(String reportName, AmazonWebServicesClientProxy proxy, Logger logger, CostAndUsageReportClient curClient) {
         DescribeReportDefinitionsResponse describeReportDefinitionsResponse = proxy.injectCredentialsAndInvokeV2(
             DescribeReportDefinitionsRequest.builder().build(),
             curClient::describeReportDefinitions

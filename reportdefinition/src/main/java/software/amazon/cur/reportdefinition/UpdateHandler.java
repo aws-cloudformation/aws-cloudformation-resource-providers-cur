@@ -12,23 +12,16 @@ import software.amazon.cloudformation.proxy.ResourceHandlerRequest;
 
 public class UpdateHandler extends CurBaseHandler {
 
-    public UpdateHandler() {
-        super();
-    }
-
-    public UpdateHandler(CostAndUsageReportClient client) {
-        super(client);
-    }
-
     @Override
     public ProgressEvent<ResourceModel, CallbackContext> handleRequest(final AmazonWebServicesClientProxy proxy,
             final ResourceHandlerRequest<ResourceModel> request, final CallbackContext callbackContext,
             final Logger logger) {
 
         final ResourceModel model = request.getDesiredResourceState();
+        final CostAndUsageReportClient curClient = getClient(request);
 
         // This will throw the exception needed if the report doesn't exist - we don't need the ReportDefinition it returns
-        getReport(model.getReportName(), proxy, logger);
+        getReport(model.getReportName(), proxy, logger, curClient);
         final ReportDefinition updatedReportDefinition = Translator.toReportDefinition(model);
 
         try {

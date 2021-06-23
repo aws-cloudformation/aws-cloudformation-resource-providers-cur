@@ -37,7 +37,7 @@ public class UpdateHandlerTest {
 
     @Test
     void handleRequest_SimpleSuccess() {
-        final UpdateHandler handler = new UpdateHandler(TestUtil.TEST_CLIENT);
+        final UpdateHandler handler = new UpdateHandler();
 
         final ResourceModel model = ResourceModel.builder()
             .reportName(TestUtil.TEST_REPORT_NAME)
@@ -54,6 +54,7 @@ public class UpdateHandlerTest {
             .build();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
+            .region(TestUtil.TEST_STACK_REGION)
             .desiredResourceState(model)
             .build();
 
@@ -85,12 +86,14 @@ public class UpdateHandlerTest {
 
     @Test
     void handleRequest_DoesNotExist() {
-        final UpdateHandler handler = new UpdateHandler(TestUtil.TEST_CLIENT);
+        final UpdateHandler handler = new UpdateHandler();
 
         final ResourceModel model = ResourceModel.builder().reportName("testReportName").build();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
-                .desiredResourceState(model).build();
+            .region(TestUtil.TEST_STACK_REGION)
+            .desiredResourceState(model)
+            .build();
 
         doReturn(DescribeReportDefinitionsResponse.builder().reportDefinitions(Collections.emptyList()).build())
                 .when(proxy)

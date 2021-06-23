@@ -12,13 +12,6 @@ import software.amazon.cloudformation.proxy.ResourceHandlerRequest;
 // https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test-contract.html#resource-type-test-contract-read
 public class ReadHandler extends CurBaseHandler {
 
-    public ReadHandler() {
-        super();
-    }
-
-    public ReadHandler(CostAndUsageReportClient client) {
-        super(client);
-    }
     @Override
     public ProgressEvent<ResourceModel, CallbackContext> handleRequest(
         final AmazonWebServicesClientProxy proxy,
@@ -26,10 +19,11 @@ public class ReadHandler extends CurBaseHandler {
         final CallbackContext callbackContext,
         final Logger logger) {
 
-        String reportName = request.getDesiredResourceState().getReportName();
+        final String reportName = request.getDesiredResourceState().getReportName();
+        final CostAndUsageReportClient curClient = getClient(request);
 
         try {
-            ReportDefinition reportDefinition = getReport(reportName, proxy, logger);
+            ReportDefinition reportDefinition = getReport(reportName, proxy, logger, curClient);
 
             return ProgressEvent.<ResourceModel, CallbackContext>builder()
                 .resourceModel(Translator.toResourceModel(reportDefinition))

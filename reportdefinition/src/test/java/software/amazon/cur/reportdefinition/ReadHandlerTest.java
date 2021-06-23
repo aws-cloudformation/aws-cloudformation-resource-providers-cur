@@ -30,11 +30,12 @@ public class ReadHandlerTest {
 
     @Test
     void handleRequest_SimpleSuccess() {
-        final ReadHandler handler = new ReadHandler(TestUtil.TEST_CLIENT);
+        final ReadHandler handler = new ReadHandler();
 
         // The input to a read handler MUST contain either the primaryIdentifier or an additionalIdentifier. Any other properties MAY NOT be included in the request.
         // https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test-contract.html#resource-type-test-contract-read
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
+            .region(TestUtil.TEST_STACK_REGION)
             .desiredResourceState(ResourceModel.builder()
                 .reportName(TestUtil.TEST_REPORT_NAME)
                 .build()
@@ -59,13 +60,14 @@ public class ReadHandlerTest {
 
     @Test
     void handleRequest_DoesNotExist() {
-        final ReadHandler handler = new ReadHandler(TestUtil.TEST_CLIENT);
+        final ReadHandler handler = new ReadHandler();
 
         final ResourceModel model = ResourceModel.builder()
             .reportName(TestUtil.TEST_REPORT_NAME)
             .build();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
+            .region(TestUtil.TEST_STACK_REGION)
             .desiredResourceState(model)
             .build();
 
