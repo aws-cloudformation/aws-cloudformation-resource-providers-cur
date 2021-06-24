@@ -54,6 +54,7 @@ public class UpdateHandlerTest {
             .build();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
+            .region(TestUtil.TEST_STACK_REGION)
             .desiredResourceState(model)
             .build();
 
@@ -90,7 +91,9 @@ public class UpdateHandlerTest {
         final ResourceModel model = ResourceModel.builder().reportName("testReportName").build();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
-                .desiredResourceState(model).build();
+            .region(TestUtil.TEST_STACK_REGION)
+            .desiredResourceState(model)
+            .build();
 
         doReturn(DescribeReportDefinitionsResponse.builder().reportDefinitions(Collections.emptyList()).build())
                 .when(proxy)

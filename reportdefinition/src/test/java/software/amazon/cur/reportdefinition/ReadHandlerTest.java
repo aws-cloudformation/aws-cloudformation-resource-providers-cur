@@ -35,6 +35,7 @@ public class ReadHandlerTest {
         // The input to a read handler MUST contain either the primaryIdentifier or an additionalIdentifier. Any other properties MAY NOT be included in the request.
         // https://docs.aws.amazon.com/cloudformation-cli/latest/userguide/resource-type-test-contract.html#resource-type-test-contract-read
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
+            .region(TestUtil.TEST_STACK_REGION)
             .desiredResourceState(ResourceModel.builder()
                 .reportName(TestUtil.TEST_REPORT_NAME)
                 .build()
@@ -66,6 +67,7 @@ public class ReadHandlerTest {
             .build();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
+            .region(TestUtil.TEST_STACK_REGION)
             .desiredResourceState(model)
             .build();
 

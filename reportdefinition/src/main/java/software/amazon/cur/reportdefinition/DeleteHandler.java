@@ -1,5 +1,6 @@
 package software.amazon.cur.reportdefinition;
 
+import software.amazon.awssdk.services.costandusagereport.CostAndUsageReportClient;
 import software.amazon.awssdk.services.costandusagereport.model.CostAndUsageReportException;
 import software.amazon.awssdk.services.costandusagereport.model.DeleteReportDefinitionRequest;
 import software.amazon.cloudformation.proxy.AmazonWebServicesClientProxy;
@@ -18,9 +19,10 @@ public class DeleteHandler extends CurBaseHandler {
         final Logger logger) {
 
         final ResourceModel model = request.getDesiredResourceState();
+        final CostAndUsageReportClient curClient = getClient(request);
 
         // This will throw the exception needed if the report doesn't exist - we don't need the ReportDefinition it returns
-        getReport(model.getReportName(), proxy, logger);
+        getReport(model.getReportName(), proxy, logger, curClient);
 
         try {
             proxy.injectCredentialsAndInvokeV2(

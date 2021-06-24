@@ -35,6 +35,7 @@ public class CreateHandlerTest {
         final CreateHandler handler = new CreateHandler();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
+            .region(TestUtil.TEST_STACK_REGION)
             .desiredResourceState(TestUtil.TEST_RESOURCE_MODEL)
             .build();
 
@@ -61,6 +62,7 @@ public class CreateHandlerTest {
         final CreateHandler handler = new CreateHandler();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
+            .region(TestUtil.TEST_STACK_REGION)
             .desiredResourceState(TestUtil.TEST_RESOURCE_MODEL)
             .build();
 
@@ -75,6 +77,7 @@ public class CreateHandlerTest {
         final CreateHandler handler = new CreateHandler();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
+            .region(TestUtil.TEST_STACK_REGION)
             .desiredResourceState(TestUtil.TEST_RESOURCE_MODEL)
             .build();
 

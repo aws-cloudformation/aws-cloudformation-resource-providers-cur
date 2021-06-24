@@ -1,5 +1,6 @@
 package software.amazon.cur.reportdefinition;
 
+import software.amazon.awssdk.services.costandusagereport.CostAndUsageReportClient;
 import software.amazon.awssdk.services.costandusagereport.model.CostAndUsageReportException;
 import software.amazon.awssdk.services.costandusagereport.model.PutReportDefinitionRequest;
 import software.amazon.awssdk.services.costandusagereport.model.ReportDefinition;
@@ -20,6 +21,7 @@ public class CreateHandler extends CurBaseHandler {
 
         final ResourceModel model = request.getDesiredResourceState();
         final ReportDefinition reportDefinition = Translator.toReportDefinition(model);
+        final CostAndUsageReportClient curClient = getClient(request);
 
         try {
             proxy.injectCredentialsAndInvokeV2(

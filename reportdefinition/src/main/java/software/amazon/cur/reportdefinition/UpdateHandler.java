@@ -1,5 +1,6 @@
 package software.amazon.cur.reportdefinition;
 
+import software.amazon.awssdk.services.costandusagereport.CostAndUsageReportClient;
 import software.amazon.awssdk.services.costandusagereport.model.CostAndUsageReportException;
 import software.amazon.awssdk.services.costandusagereport.model.ModifyReportDefinitionRequest;
 import software.amazon.awssdk.services.costandusagereport.model.ReportDefinition;
@@ -17,9 +18,10 @@ public class UpdateHandler extends CurBaseHandler {
             final Logger logger) {
 
         final ResourceModel model = request.getDesiredResourceState();
+        final CostAndUsageReportClient curClient = getClient(request);
 
         // This will throw the exception needed if the report doesn't exist - we don't need the ReportDefinition it returns
-        getReport(model.getReportName(), proxy, logger);
+        getReport(model.getReportName(), proxy, logger, curClient);
         final ReportDefinition updatedReportDefinition = Translator.toReportDefinition(model);
 
         try {

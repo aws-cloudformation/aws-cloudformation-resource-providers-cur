@@ -42,7 +42,9 @@ public class DeleteHandlerTest {
             .build();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
-                .desiredResourceState(model).build();
+            .region(TestUtil.TEST_STACK_REGION)
+            .desiredResourceState(model)
+            .build();
 
         doReturn(DescribeReportDefinitionsResponse.builder().reportDefinitions(TestUtil.TEST_REPORT_DEFINITION).build())
             .when(proxy)
@@ -74,7 +76,9 @@ public class DeleteHandlerTest {
             .build();
 
         final ResourceHandlerRequest<ResourceModel> request = ResourceHandlerRequest.<ResourceModel>builder()
-                .desiredResourceState(model).build();
+            .region(TestUtil.TEST_STACK_REGION)
+            .desiredResourceState(model)
+            .build();
 
         doReturn(DescribeReportDefinitionsResponse.builder().reportDefinitions(Collections.emptyList()).build())
                 .when(proxy).injectCredentialsAndInvokeV2(any(DescribeReportDefinitionsRequest.class), any());

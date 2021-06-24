@@ -1,5 +1,6 @@
 package software.amazon.cur.reportdefinition;
 
+import software.amazon.awssdk.services.costandusagereport.CostAndUsageReportClient;
 import software.amazon.awssdk.services.costandusagereport.model.CostAndUsageReportException;
 import software.amazon.awssdk.services.costandusagereport.model.ReportDefinition;
 import software.amazon.cloudformation.proxy.AmazonWebServicesClientProxy;
@@ -18,10 +19,11 @@ public class ReadHandler extends CurBaseHandler {
         final CallbackContext callbackContext,
         final Logger logger) {
 
-        String reportName = request.getDesiredResourceState().getReportName();
+        final String reportName = request.getDesiredResourceState().getReportName();
+        final CostAndUsageReportClient curClient = getClient(request);
 
         try {
-            ReportDefinition reportDefinition = getReport(reportName, proxy, logger);
+            ReportDefinition reportDefinition = getReport(reportName, proxy, logger, curClient);
 
             return ProgressEvent.<ResourceModel, CallbackContext>builder()
                 .resourceModel(Translator.toResourceModel(reportDefinition))
